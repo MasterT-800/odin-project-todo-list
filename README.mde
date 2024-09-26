@@ -1,0 +1,3 @@
+Repo template to beign all projects that need webpack bundling. Once cloned change name in package.json and use npm install to install dependencies.
+If workiing with local image files install html-loader or asset/resource rule
+Use npm run <script name> to use custom scripts, most used are build and dev
