@@ -11,12 +11,23 @@ class Todo{
 //Is an array of todos that can be aded and removed
 class Project{
     //initial todolist set to an empty array
-    todolist = [];
+    todoList = [];
     constructor(title){
         this.title = title;
     }
     //Methods to add and remove todos
+    addTodo(todo){
+        this.todoList.push(todo);
+    }
+    removeTodo(todo){
+        let index = this.todoList.indexOf(todo);
+        this.todoList.splice(index, 1);
+    }
     //Getter to return list
+    get displayList(){
+        return this.todoList;
+    }
 
 
 }
+export {Todo, Project};
