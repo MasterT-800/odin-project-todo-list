@@ -11,9 +11,9 @@ class Todo{
 //Is an array of todos that can be aded and removed
 class Project{
     //initial todolist set to an empty array
-    todoList = [];
-    constructor(title){
+    constructor(title, todoList = []){
         this.title = title;
+        this.todoList = todoList;
     }
     //Methods to add and remove todos
     addTodo(todo){
