@@ -1,12 +1,12 @@
 //Handles local storage logic
 //Locally stores object
-function storeObject(object){
-    localStorage.setItem(object.title, JSON.stringify(object));
-    console.log(JSON.parse(localStorage.getItem(object.title)));
+//Must make two sets of key value pairs that are arrays that get added to Projects and Todos
+function storeObject(object, key){
+    localStorage.setItem(key, JSON.stringify(object));
 }
 //Retrueves locally stored object
-function getObject(object){
-    return JSON.parse(localStorage.getItem(object.title));
+function getObject(key){
+    return JSON.parse(localStorage.getItem(key));
 }
 
 export{storeObject, getObject};
