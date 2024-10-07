@@ -9,9 +9,11 @@ import { storeObject, getObject } from "./storage.js";
     if(localStorage.length > 0){
         //Retrieve locally stored list and save to it variable
         const retrievedList = getObject('project list');
-        console.log(retrievedList);
         //Create new Project objects out of retrieved json object
         //Returns method funtionality to stored objects
+        retrievedList.forEach(item => {
+            restoreMethods(item);
+        });
         //Display list of projects
     }
     //If not load new default empty project
@@ -20,6 +22,11 @@ import { storeObject, getObject } from "./storage.js";
         const projectList = [];
         const defaultProject = new Project('Default Project');
         projectList.push(defaultProject);
+        //Additional test project with todo list
+        const testProject = new Project('test');
+        const testTodo = new Todo('test','testing methods','now','top');
+        testProject.addTodo(testTodo);
+        projectList.push(testProject);
         //Save project list to local storage
         storeObject(projectList, 'project list');
         //Display project
@@ -29,7 +36,8 @@ import { storeObject, getObject } from "./storage.js";
   
 //Restores method functionality to objects rertrieved from local storage
 function restoreMethods(project){
-
+    const restoredProject = new Project(project.title, project.todoList);
+    return restoredProject;
 }
 
 function displayList(list){
