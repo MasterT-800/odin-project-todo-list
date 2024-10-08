@@ -3,18 +3,19 @@ import { Todo, Project } from "./logic.js";
 import { storeObject, getObject } from "./storage.js";
 
 //Dom manipulation of logic setting user display elements
+const body = document.querySelector('body');
 //Display default project on initial load
 (function onLoad() {
     //Check to see if projects exist in local storage, load , and display them
     if(localStorage.length > 0){
         //Retrieve locally stored list and save to it variable
         const retrievedList = getObject('project list');
-        //Create new Project objects out of retrieved json object
         //Returns method funtionality to stored objects
         retrievedList.forEach(item => {
-            restoreMethods(item);
-        });
+            let restoredItem = restoreMethods(item);
         //Display list of projects
+            displayList(restoredItem);
+        });
     }
     //If not load new default empty project
     else{
@@ -40,9 +41,20 @@ function restoreMethods(project){
     return restoredProject;
 }
 
-function displayList(list){
+function displayList(listObject){
     //Iterates through stored list and adds it to dom
+    const projectDiv = document.createElement('div');
+    projectDiv.textContent = listObject.title;
+    const projectUL = document.createElement('ul');
+    //Add todo button
+    body.appendChild(projectDiv);
+    projectDiv.appendChild(projectUL);
     //Iterate through each todo list and add each item to dom
+        for(let i = 0; i < listObject.todoList.length; i++){
+            const todoItem = document.createElement('li');
+            todoItem.textContent = listObject.todoList[i].title;
+            projectUL.appendChild(todoItem);
+        }
     //Add edit and delete buttons to todos
 }
 
