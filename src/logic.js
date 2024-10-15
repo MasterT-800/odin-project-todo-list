@@ -19,8 +19,8 @@ class Project{
     addTodo(todo){
         this.todoList.push(todo);
     }
-    removeTodo(todo){
-        let index = this.todoList.indexOf(todo);
+    removeTodo(index){
+        // let index = this.todoList.indexOf(todo);
         this.todoList.splice(index, 1);
     }
     //Getter to return list

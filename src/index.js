@@ -53,12 +53,28 @@ function displayList(listObject){
         for(let i = 0; i < listObject.todoList.length; i++){
             const todoItem = document.createElement('li');
             todoItem.textContent = listObject.todoList[i].title;
+            //Add edit and delete buttons to todos
+            createDeleteButton(todoItem, listObject, i);
             projectUL.appendChild(todoItem);
         }
-    //Add edit and delete buttons to todos
 }
 
-//Create new todo to project then save to local storage
+function createEditButton(){}
+
+function createDeleteButton(element, listObject, index){
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.addEventListener('click',()=>{
+        listObject.removeTodo(index);
+        //Save edited project to local storage
+        replaceStoredProject(listObject);
+        // //Relaod page
+        window.location.reload();
+    })
+    element.appendChild(deleteButton);
+}
+
+//Create new todo add to project then save to local storage
 function addTodo(){
     //Add to todo list in project
     //Save to local storage
@@ -69,5 +85,13 @@ function addProject(title){
     //Save to storage
     const retrievedList = getObject('project list');
     retrievedList.push(newProject);
+    storeObject(retrievedList, 'project list');
+  }
+  //Used when saving an edited project to local storage
+  function replaceStoredProject(project){
+    const retrievedList = getObject('project list');
+    let index = retrievedList.findIndex(x=> x.title === project.title);
+    retrievedList.splice(index, 1);
+    retrievedList.push(project);
     storeObject(retrievedList, 'project list');
   }
