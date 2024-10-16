@@ -10,6 +10,7 @@ const body = document.querySelector('body');
     if(localStorage.length > 0){
         //Retrieve locally stored list and save to it variable
         const retrievedList = getObject('project list');
+        createProjectButton();
         //Returns method funtionality to stored objects
         retrievedList.forEach(item => {
             let restoredItem = restoreMethods(item);
@@ -54,12 +55,22 @@ function displayList(listObject){
             const todoItem = document.createElement('li');
             todoItem.textContent = listObject.todoList[i].title;
             //Add edit and delete buttons to todos
+            createEditButton(todoItem, listObject, i);
             createDeleteButton(todoItem, listObject, i);
             projectUL.appendChild(todoItem);
         }
 }
 
-function createEditButton(){}
+function createEditButton(element, listObject, index){
+    const editButton = document.createElement('button');
+    editButton.textContent = "Edit";
+    editButton.addEventListener('click',()=>{
+        //Shows the entire todo object with editable fields
+        //Save edited project to storage
+        replaceStoredProject(listObject);
+    })
+    element.appendChild(editButton);
+}
 
 function createDeleteButton(element, listObject, index){
     const deleteButton = document.createElement('button');
@@ -95,3 +106,14 @@ function addProject(title){
     retrievedList.push(project);
     storeObject(retrievedList, 'project list');
   }
+function createProjectButton(){
+  //Create add project button and add it to the top of page
+    const addProjectButton = document.createElement('button');
+    addProjectButton.textContent = 'Add New Project';
+    addProjectButton.addEventListener('click',()=>{
+        let projectName = prompt('Please enter project title')
+        addProject(projectName);
+        window.location.reload();
+    })
+    body.appendChild(addProjectButton);
+}
