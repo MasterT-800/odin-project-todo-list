@@ -48,6 +48,7 @@ function displayList(listObject){
     projectDiv.textContent = listObject.title;
     const projectUL = document.createElement('ul');
     //Add todo button
+    createAddTodoButton(projectDiv, listObject);
     body.appendChild(projectDiv);
     projectDiv.appendChild(projectUL);
     //Iterate through each todo list and add each item to dom
@@ -85,11 +86,24 @@ function createDeleteButton(element, listObject, index){
     element.appendChild(deleteButton);
 }
 
-//Create new todo add to project then save to local storage
-function addTodo(){
-    //Add to todo list in project
-    //Save to local storage
+function createAddTodoButton(element, project){
+    const addTodoButton = document.createElement('button');
+    addTodoButton.textContent = 'Add Todo';
+    addTodoButton.addEventListener('click', ()=>{
+        console.log(project.title);
+    })
+    element.appendChild(addTodoButton);
 }
+
+//Create new todo add to project then save to local storage
+function addTodo(project, title, description, dueDate, priority){
+    const todo = new Todo(title, description, dueDate, priority);
+    //Add to todo list in project
+    project.addTodo(todo);
+    //Save to local storage
+    replaceStoredProject(project);
+}
+
 //Create new project and save to local storage
 function addProject(title){
     const newProject = new Project(title);
