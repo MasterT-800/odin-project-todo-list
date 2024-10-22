@@ -32,7 +32,6 @@ const body = document.querySelector('body');
         //Save project list to local storage
         storeObject(projectList, 'project list');
         //Display project
-        
     }
   })();
   
@@ -89,8 +88,8 @@ function createDeleteButton(element, listObject, index){
 function createAddTodoButton(element, project){
     const addTodoButton = document.createElement('button');
     addTodoButton.textContent = 'Add Todo';
-    addTodoButton.addEventListener('click', ()=>{
-        console.log(project.title);
+    addTodoButton.addEventListener('click',()=>{
+        createForm(element, project);
     })
     element.appendChild(addTodoButton);
 }
@@ -130,4 +129,69 @@ function createProjectButton(){
         window.location.reload();
     })
     body.appendChild(addProjectButton);
+}
+
+//Todo form submit button
+const submitButton = document.querySelector('#submit')
+submitButton.addEventListener('click', ()=>{
+    console.log('submit');
+})
+
+function createForm(element, project){
+     // Create the form element
+     const form = document.createElement("form");
+     form.id = "todoForm";
+ 
+     // Create a label and input for the title
+     const titleLabel = document.createElement("label");
+     titleLabel.textContent = "Title: ";
+     const titleInput = document.createElement("input");
+     titleInput.type = "text";
+     titleInput.id = "title";
+
+    // Create a label and input for the description
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.textContent = "Description: ";
+    const descriptionInput = document.createElement("input");
+    descriptionInput.type = "text";
+    descriptionInput.id = "description";
+ 
+     // Create a label and input for the due date
+     const dueDateLabel = document.createElement("label");
+     dueDateLabel.textContent = "Due Date: ";
+     const dueDateInput = document.createElement("input");
+     dueDateInput.type = "date";
+     dueDateInput.id = "due";
+
+    // Create a label and input for the priority
+    const priorityLabel = document.createElement("label");
+    priorityLabel.textContent = "Priority (1 is top): ";
+    const priorityInput = document.createElement("input");
+    priorityInput.type = "number";
+    priorityInput.min = '1';
+    priorityInput.max = '3';
+    priorityInput.id = "priority";
+ 
+     // Create a submit button
+     const submitButton = document.createElement("button");
+     submitButton.type = "submit";
+     submitButton.textContent = "Submit";
+ 
+     // Append the elements to the form
+     form.appendChild(titleLabel);
+     form.appendChild(titleInput);
+     form.appendChild(document.createElement("br")); // Add a line break
+     form.appendChild(descriptionLabel);
+     form.appendChild(descriptionInput);
+     form.appendChild(document.createElement("br")); // Add a line break
+     form.appendChild(dueDateLabel);
+     form.appendChild(dueDateInput);
+     form.appendChild(document.createElement("br")); // Add a line break
+     form.appendChild(priorityLabel);
+     form.appendChild(priorityInput);
+     form.appendChild(document.createElement("br")); // Add a line break
+     form.appendChild(submitButton);
+ 
+     // Append the form to the body
+     element.appendChild(form);
 }
