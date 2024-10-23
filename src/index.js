@@ -95,8 +95,7 @@ function createAddTodoButton(element, project){
 }
 
 //Create new todo add to project then save to local storage
-function addTodo(project, title, description, dueDate, priority){
-    const todo = new Todo(title, description, dueDate, priority);
+function addTodo(project, todo){
     //Add to todo list in project
     project.addTodo(todo);
     //Save to local storage
@@ -130,12 +129,6 @@ function createProjectButton(){
     })
     body.appendChild(addProjectButton);
 }
-
-//Todo form submit button
-const submitButton = document.querySelector('#submit')
-submitButton.addEventListener('click', ()=>{
-    console.log('submit');
-})
 
 function createForm(element, project){
      // Create the form element
@@ -173,9 +166,13 @@ function createForm(element, project){
     priorityInput.id = "priority";
  
      // Create a submit button
-     const submitButton = document.createElement("button");
-     submitButton.type = "submit";
-     submitButton.textContent = "Submit";
+    const submitButton = document.createElement("button");
+    submitButton.type = "submit";
+    submitButton.textContent = "Submit";
+    submitButton.addEventListener('click', ()=>{
+        const todo = new Todo(titleInput.value,descriptionInput.value, dueDateInput.value, priorityInput.value);
+        addTodo(project, todo);
+    })
  
      // Append the elements to the form
      form.appendChild(titleLabel);
