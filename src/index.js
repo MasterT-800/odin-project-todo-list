@@ -66,8 +66,7 @@ function createEditButton(element, listObject, index){
     editButton.textContent = "Edit";
     editButton.addEventListener('click',()=>{
         //Shows the entire todo object with editable fields
-        //Save edited project to storage
-        replaceStoredProject(listObject);
+        createEditForm(element, listObject, index);
     })
     element.appendChild(editButton);
 }
@@ -191,4 +190,73 @@ function createForm(element, project){
  
      // Append the form to the body
      element.appendChild(form);
+}
+
+function createEditForm(element, project, index){
+    const todo = project.todoList[index];
+    // Create the form element
+    const form = document.createElement("form");
+    form.id = "editTodoForm";
+
+    // Create a label and input for the title
+    const titleLabel = document.createElement("label");
+    titleLabel.textContent = "Title: ";
+    const titleInput = document.createElement("input");
+    titleInput.type = "text";
+    titleInput.id = "title";
+    titleInput.value = todo.title;
+
+   // Create a label and input for the description
+   const descriptionLabel = document.createElement("label");
+   descriptionLabel.textContent = "Description: ";
+   const descriptionInput = document.createElement("input");
+   descriptionInput.type = "text";
+   descriptionInput.id = "description";
+   descriptionInput.value = todo.description;
+
+    // Create a label and input for the due date
+    const dueDateLabel = document.createElement("label");
+    dueDateLabel.textContent = "Due Date: ";
+    const dueDateInput = document.createElement("input");
+    dueDateInput.type = "date";
+    dueDateInput.id = "due";
+    dueDateInput.value = todo.dueDate;
+
+   // Create a label and input for the priority
+   const priorityLabel = document.createElement("label");
+   priorityLabel.textContent = "Priority (1 is top): ";
+   const priorityInput = document.createElement("input");
+   priorityInput.type = "number";
+   priorityInput.min = '1';
+   priorityInput.max = '3';
+   priorityInput.id = "priority";
+   priorityInput.value = todo.priority;
+
+    // Create a submit button
+   const submitButton = document.createElement("button");
+   submitButton.type = "submit";
+   submitButton.textContent = "Submit";
+   submitButton.addEventListener('click', ()=>{
+       project.removeTodo(index);
+       const newTodo = new Todo(titleInput.value,descriptionInput.value, dueDateInput.value, priorityInput.value);
+       addTodo(project, newTodo);
+   })
+
+    // Append the elements to the form
+    form.appendChild(titleLabel);
+    form.appendChild(titleInput);
+    form.appendChild(document.createElement("br")); // Add a line break
+    form.appendChild(descriptionLabel);
+    form.appendChild(descriptionInput);
+    form.appendChild(document.createElement("br")); // Add a line break
+    form.appendChild(dueDateLabel);
+    form.appendChild(dueDateInput);
+    form.appendChild(document.createElement("br")); // Add a line break
+    form.appendChild(priorityLabel);
+    form.appendChild(priorityInput);
+    form.appendChild(document.createElement("br")); // Add a line break
+    form.appendChild(submitButton);
+
+    // Append the form to the body
+    element.appendChild(form);
 }
